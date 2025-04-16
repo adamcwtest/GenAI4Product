@@ -282,39 +282,14 @@ def process_summary(query: str) -> Dict:
     summary_prompt = """For a collection of business documents containing standardized sections, please analyze and extract the key insights across all responses. Use the following structured approach:
 
 ## Purpose & Context Section
-- Extract the stated mission, vision, and core objectives of the organization/team
-- Identify market conditions and external factors influencing operations
-- Summarize key challenges and opportunities mentioned
-- Note any significant shifts in purpose or strategic direction compared to previous periods
 
 ## Business Performance Section
-- Identify key performance metrics and their current status
-- Extract growth rates, financial indicators, and market position data
-- Summarize operational achievements and shortfalls
-- Highlight customer/client satisfaction indicators and trends
-- Note any performance patterns or anomalies across responses
 
 ## Strategic Priorities Section
-- List all strategic initiatives in order of stated priority
-- Identify common themes and divergences across responses
-- Extract timelines, success metrics, and resource allocations for each priority
-- Summarize how these priorities align with the stated purpose and context
-- Note any shifts in strategic focus compared to previous periods
 
 ## Incremental Headcount Initiatives Section
-- For each initiative (1-5):
-  * Summarize the initiative's purpose and expected outcomes
-  * Extract specific headcount requests and their justifications
-  * Identify potential ROI or business impact projections
-  * Note dependencies or risks associated with staffing these initiatives
-  * Compare urgency and importance across initiatives
 
 ## Non-Linear Investments Section
-- Identify proposed high-risk/high-reward investments
-- Extract innovative or transformative initiatives that could significantly alter business trajectory
-- Summarize resource requirements and expected outcomes
-- Note evaluation criteria for success/failure
-- Identify common themes in non-linear thinking across responses
 
 ## Synthesis and Integration
 - Highlight alignment or misalignment between purpose, performance, and priorities
@@ -367,24 +342,10 @@ def process_insights(query: str) -> Dict:
     detailed_prompt = """For each response document in the collection, please extract and synthesize the key insights and strategic information across the following sections:
 
 ## Strategic Landscape Assessment
-- Identify the primary tailwinds and headwinds affecting the business
-- Summarize disruptive ideas being proposed or implemented
-- Extract key competitive advantages (both current and durable)
-- Highlight potential acquisition targets mentioned
 
 ## Performance Review
-- Catalog major disappointments, misses, and "dirty laundry" issues
-- Identify "silent threats" or "dogs not barking" concerns
-- Summarize status of commitments/goals with clear yes/no achievement indicators
-- List unexpected positive surprises and how they're being leveraged
-- Flag any "watermelon goals" (technically achieved but problematically)
 
 ## Operational Vulnerabilities
-- Note customer concentration issues (>10% dependencies) and mitigation strategies
-- Identify programs lacking single-threaded leadership
-- Compile "paper cut" issues affecting customer experience with resolution timelines
-- Summarize enterprise-readiness gaps as perceived by customers
-- List organizational axioms/beliefs being challenged
 
 ## Output Format
 For each section, present findings in bullet point format with:

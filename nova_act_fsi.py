@@ -1,5 +1,6 @@
 """
-Financial Services News Analysis Tool using AWS Bedrock and Nova Act
+Financial Services News Analysis Tool using AWS Bedrock and Nova Act 
+https://nova.amazon.com/act
 
 This module provides functionality to search for news headlines and analyze them
 using AWS Bedrock's AI capabilities. It's designed to help financial services product

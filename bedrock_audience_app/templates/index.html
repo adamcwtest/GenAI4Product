@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audience-Tailored Content Generator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 2rem;
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 800px;
+        }
+        .result-section {
+            display: none;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 2rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mb-4 text-center">Audience-Tailored Content Generator</h1>
+        <p class="lead text-center mb-4">Generate talking points and questions tailored to your specific audience</p>
+        
+        <div class="card mb-4">
+            <div class="card-body">
+                <form id="audienceForm">
+                    <div class="mb-3">
+                        <label for="audienceProfile" class="form-label">Describe your audience in detail:</label>
+                        <textarea class="form-control" id="audienceProfile" rows="5" placeholder="Example: Technical professionals in healthcare IT, mid-career, focused on implementing electronic health record systems, concerned about data security and HIPAA compliance."></textarea>
+                        <div class="form-text">The more specific you are, the better the tailored content will be.</div>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Generate Content</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="loading" id="loadingIndicator">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-2">Generating tailored content...</p>
+        </div>
+        
+        <div class="result-section" id="resultSection">
+            <h2 class="mb-4">Tailored Content</h2>
+            <div id="generatedContent"></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('audienceForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const audienceProfile = document.getElementById('audienceProfile').value.trim();
+            if (!audienceProfile) {
+                alert('Please describe your audience');
+                return;
+            }
+            
+            // Show loading indicator
+            document.getElementById('loadingIndicator').style.display = 'block';
+            document.getElementById('resultSection').style.display = 'none';
+            
+            try {
+                const formData = new FormData();
+                formData.append('audience_profile', audienceProfile);
+                
+                const response = await fetch('/generate', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    document.getElementById('generatedContent').innerHTML = 
+                        `<pre style="white-space: pre-wrap;">${data.talking_points}</pre>`;
+                    document.getElementById('resultSection').style.display = 'block';
+                } else {
+                    alert(`Error: ${data.error || 'Failed to generate content'}`);
+                }
+            } catch (error) {
+                alert('An error occurred. Please try again.');
+                console.error(error);
+            } finally {
+                document.getElementById('loadingIndicator').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
